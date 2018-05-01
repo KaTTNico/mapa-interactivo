@@ -11,6 +11,13 @@ marcadorModulo = (function () {
         en la posición pasada por parámetro y mostrarlo en el mapa.
         Este marcador debe tener un título, una animación.
         El marcador que vas a crear debe asignarse a la variable miMarcador */
+        miMarcador = new google.maps.Marker({
+          position: ubicacion,
+          map: mapa,
+          animation: google.maps.Animation.DROP,
+          //no sabia que ponerle de titulo asi que le puse la direccion
+          title: document.getElementById('direccion').value
+        });
   }
 
     // Agrega la dirección del marcador en la lista de Lugares Intermedios

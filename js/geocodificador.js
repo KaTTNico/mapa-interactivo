@@ -9,7 +9,12 @@ geocodificadorModulo = (function () {
      y que llame a la función pasada por parámetro con los siguientes parámetros
      dirección: la dirección pasada por parámetro
      coordenada: la ubicación de tipo google.maps.LatLng */
-  }
+     geocodificador.geocode( { 'address': direccion}, function(results, status) {
+       /*if el estado devolvio 'OK' entonces llamar a funcionALlamar pasando la direccion y las coordenadas de la direccion buscada
+       de lo contrario alertar la razon por la cual no se pudo realizar la geocodificacion*/
+       status == 'OK' ? funcionALlamar(direccion,results[0].geometry.location) : alert('Geocodificador fallo por la siguiente razon: ' + status);
+     });
+   }
 
     // Inicializo el geocoder que obtiene las corrdenadas a partir de una dirección
     // La variable dirección es igual al texto ingresado por el usuario
