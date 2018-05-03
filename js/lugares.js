@@ -8,14 +8,8 @@ lugaresModulo = (function () {
         página (las direcciones ingresables por el usuario).
         Para esto creá un círculo con radio de 20000 metros y usalo para fijar
         los límites de la búsqueda de dirección. El círculo no se debe ver en el mapa. */
-        let geolocation;
-        (navigator.geolocation) ? navigator.geolocation.getCurrentPosition((position)=>
-                geolocation = {lat: position.coords.latitude,lng: position.coords.longitude}
-              ):geolocation;
-
         let circulo = new google.maps.Circle({
-          //si no se permitio la geolocation al sitio entonces tomar la posicionCentral
-          center: geolocation? geolocation : posicionCentral,
+          center: posicionCentral,
           radius: 20000
         });
 
@@ -23,8 +17,8 @@ lugaresModulo = (function () {
           bounds: circulo.getBounds(),
           types: ['establishment']
         };
-
-        autocomplete = new google.maps.places.Autocomplete(document.getElementById('direccion'), options);
+        //agregar a todos los input de type textbox un autocomplete
+        $('input[type=textbox]').each(function(){new google.maps.places.Autocomplete($(this).get(0),options);})
   }
 
     // Inicializo la variable servicioLugares y llamo a la función autocompletar
@@ -44,7 +38,7 @@ lugaresModulo = (function () {
       radius:document.getElementById('radio').value,
       query:document.getElementById('tipoDeLugar').value
     }
-    //al callback del nearbySearch lo deje como arrow function porque solo llamaba a marcarLugares y no me parecio mejor dejarlo asi
+    //al callback del nearbySearch lo deje como arrow function porque solo llamaba a marcarLugares y me parecio mejor dejarlo asi
     servicioLugares.nearbySearch(request,(results,status)=>marcadorModulo.marcarLugares(results,status));
   }
   return {

@@ -96,6 +96,12 @@ direccionesModulo = (function () {
         /* Completar la función calcularYMostrarRutas , que dependiendo de la forma en que el
          usuario quiere ir de un camino al otro, calcula la ruta entre esas dos posiciones
          y luego muestra la ruta. */
+         servicioDirecciones.route({
+           origin: document.getElementById('desde').value,
+           destination: document.getElementById('hasta').value,
+           travelMode: 'DRIVING'//document.getElementById('comoIr').value
+         },(response, status)=>(status === 'OK') ? mostradorDirecciones.setDirections(response) : window.alert('Directions request failed due to ' + status));
+
   }
 
   return {
